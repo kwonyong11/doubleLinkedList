@@ -28,7 +28,7 @@ struct Node {
 //        for (int i = 0; i < 3; i++)
 //            newNode->data[i] = data[i];
 //    }
-//
+// 안녕하세요 ㅎㅎㅎㅎㅎㅎ
 //}
 void printNode(struct Node* target) {
     int count = 0;
