@@ -36,17 +36,24 @@ void printNode(struct Node* target) {
     int count = 0;
     struct Node* curr = (struct Node*)malloc(sizeof(struct Node));
     curr = target->next;
+    int result =0;
+    float aver=0;
     char* sub[3] = {"국어","수학","영어"};
     while (curr->next!=NULL) {
         printf("\n");
         printf("%d : ", count + 1);
         printf("%s\t", curr->name);
         for (int i = 0; i < 3; i++) {
+            result += curr->data[i];
             printf("%s점수 : %d ",sub[i], curr->data[i]);
         }
+        printf("총점 : %d\t",result);
+        aver = ((float)result)/3;
+        printf("평균 : %.2f",aver);
         curr = curr->next;
         count++;
         printf("\n");
+        result =0;
     }
 }
 
