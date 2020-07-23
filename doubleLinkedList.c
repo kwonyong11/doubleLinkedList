@@ -5,40 +5,44 @@
 
 struct Node {
     struct Node* before;
+    char* name;
     int data[3];
     struct Node* next;
 };
-//
-//void addNode(struct Node* target, struct Node* tail, int data[]) {
-//    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-//    if (tail->before == NULL) {
-//        newNode->next = tail;
-//        newNode->before = target;
-//        tail->before = newNode;
-//        target->next = newNode;
-//        for (int i = 0; i < 3; i++)
-//            newNode->data[i] = data[i];
-//    }
-//    else
-//    {
-//        struct Node* tempNode = target->next;
-//        tempNode->before = newNode;
-//        newNode->next = target->next;
-//        target->next = newNode;
-//        for (int i = 0; i < 3; i++)
-//            newNode->data[i] = data[i];
-//    }
-// ì•ˆë…•í•˜ì„¸ìš” ã…Žã…Žã…Žã…Žã…Žã…Ž
-//}
+
+void addNode(struct Node* target, struct Node* tail,char* name, int data[]) {
+   struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+   if (tail->before == NULL) {
+       newNode->next = tail;
+       newNode->before = target;
+       tail->before = newNode;
+       target->next = newNode;
+       newNode->name = name;
+       for (int i = 0; i < 3; i++)
+           newNode->data[i] = data[i];
+   }
+   else
+   {
+       struct Node* tempNode = target->next;
+       tempNode->before = newNode;
+       newNode->next = target->next;
+       target->next = newNode;
+       newNode->name = name;
+       for (int i = 0; i < 3; i++)
+           newNode->data[i] = data[i];
+   }
+}
 void printNode(struct Node* target) {
     int count = 0;
     struct Node* curr = (struct Node*)malloc(sizeof(struct Node));
     curr = target->next;
+    char* sub[3] = {"±¹¾î","¼öÇÐ","¿µ¾î"};
     while (curr->next!=NULL) {
-
+        printf("\n");
         printf("%d : ", count + 1);
+        printf("%s\t", curr->name);
         for (int i = 0; i < 3; i++) {
-            printf("%d ", curr->data[i]);
+            printf("%sÁ¡¼ö : %d ",sub[i], curr->data[i]);
         }
         curr = curr->next;
         count++;
@@ -53,10 +57,24 @@ void main() {
     struct Node* tail = (struct Node*)malloc(sizeof(struct Node));
     tail->next = NULL;
     tail->before = NULL;
+    char* name[3];
 
-    int score[3] = { 80, 90, 100 };
-    int score2[3] = { 71, 30, 300 };
-    addNode(head, tail, score);
-    addNode(head, tail, score2);
+    int score[3][3];
+
+    printf("ÇÐ»ý3¸íÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : ");
+    for(int i=0; i<3; i++){
+        char* temp_name = (char*)malloc(sizeof(char));
+        scanf("%s",temp_name);
+        name[i] = temp_name;
+    }
+    for(int i =0; i<3; i++) {
+        printf("%sÀÇ ±¹¾î / ¿µ¾î / ¼öÇÐÀÇ ¼ºÀûÀ» ÀÔ·ÂÇÏ¼¼¿ä", name[i]);
+        for(int j=0; j<3; j++){
+            scanf("%d",&score[i][j]);
+        }
+    }
+    for(int i=0; i<3; i++){
+            addNode(head,tail,name[i],score[i]);
+    }
     printNode(head);
 }
